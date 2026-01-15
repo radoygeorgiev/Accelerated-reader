@@ -32,45 +32,88 @@
       </div>
     </main>
 
-    <div class="controls-container">
-      <div class="control-group">
-        <button id="play-pause-btn" class="btn btn-primary" aria-label="Play or Pause">
-          <svg class="icon play-icon" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor" d="M8 5v14l11-7z" />
-          </svg>
-          <svg class="icon pause-icon hidden" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-          </svg>
-        </button>
+    <!-- Floating Action Button for Play/Pause -->
+    <button id="play-pause-btn" class="fab-play-btn" aria-label="Play or Pause">
+      <svg class="icon play-icon" viewBox="0 0 24 24" width="32" height="32">
+        <path fill="currentColor" d="M8 5v14l11-7z" />
+      </svg>
+      <svg class="icon pause-icon hidden" viewBox="0 0 24 24" width="32" height="32">
+        <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+
+    <div id="controls-panel" class="controls-container">
+      <!-- Sleek Handle -->
+      <div id="panel-toggle" class="panel-handle-area">
+        <div class="panel-handle-pill"></div>
+      </div>
+
+      <div class="control-row secondary-controls">
+        <div class="select-control">
+          <label for="font-family-select">Font</label>
+          <select id="font-family-select">
+            <option value="'Outfit', sans-serif">Outfit</option>
+            <option value="'Inter', sans-serif">Inter</option>
+            <option value="'Roboto Mono', monospace">Roboto Mono</option>
+            <option value="'Merriweather', serif">Merriweather</option>
+          </select>
+        </div>
+
+        <div class="slider-control">
+          <label for="font-size-slider">Size: <span id="font-size-value">64</span>px</label>
+          <input type="range" id="font-size-slider" min="24" max="150" value="64" step="2">
+        </div>
+
+        <!-- Spacer for the FAB (since it sits in the middle visually) -->
+        <div class="fab-spacer"></div>
+
         <div class="slider-control">
           <label for="wpm-slider">Speed: <span id="wpm-value">300</span> WPM</label>
           <input type="range" id="wpm-slider" min="60" max="1000" value="300" step="10">
         </div>
+
         <div class="slider-control">
-          <label for="chunk-size-slider">Words at a time: <span id="chunk-size-value">1</span></label>
+          <label for="chunk-size-slider">Words: <span id="chunk-size-value">1</span></label>
           <input type="range" id="chunk-size-slider" min="1" max="5" value="1" step="1">
         </div>
       </div>
 
-      <div class="control-group">
-        <div class="select-control">
-          <label for="font-family-select">Font Family</label>
-          <select id="font-family-select">
-            <option value="'Outfit', sans-serif">Outfit (Default)</option>
-            <option value="'Inter', sans-serif">Inter</option>
-            <option value="'Roboto Mono', monospace">Roboto Mono</option>
-            <option value="'Merriweather', serif">Merriweather</option>
-            <option value="monospace">Standard Mono</option>
-          </select>
-        </div>
-        <div class="slider-control">
-          <label for="font-size-slider">Font Size: <span id="font-size-value">64</span>px</label>
-          <input type="range" id="font-size-slider" min="24" max="150" value="64" step="2">
-        </div>
-      </div>
-
       <div class="input-area">
-        <textarea id="text-input" placeholder="Paste your text here to begin speed reading..."></textarea>
+        <textarea id="text-input" placeholder="Paste your text here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Report Modal Overlay -->
+    <div id="report-modal" class="report-overlay hidden">
+      <div class="report-content">
+        <div class="report-header">
+          <h2>Session Analytics</h2>
+          <button id="close-report-btn" class="close-btn">&times;</button>
+        </div>
+
+        <div class="report-stats">
+          <div class="stat-card">
+            <h3>Average Speed</h3>
+            <p><span id="avg-wpm">0</span> WPM</p>
+          </div>
+          <div class="stat-card">
+            <h3>Peak Speed</h3>
+            <p><span id="peak-wpm">0</span> WPM</p>
+          </div>
+          <div class="stat-card">
+            <h3>Duration</h3>
+            <p><span id="total-time">0</span>s</p>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="wpm-chart"></canvas>
+        </div>
+
+        <div class="heatmap-container">
+          <h3>Reading Heatmap</h3>
+          <div id="text-heatmap" class="heatmap-content"></div>
+        </div>
       </div>
     </div>
   </div>

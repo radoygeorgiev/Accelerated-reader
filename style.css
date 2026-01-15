@@ -144,58 +144,153 @@ body {
 }
 
 /* Controls */
+.select-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 180px;
+}
+
+.select-control label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+select {
+    background: var(--bg-color);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+select:focus {
+    border-color: var(--accent-color);
+}
+
+/* FAB Play Button */
+.fab-play-btn {
+    position: absolute;
+    bottom: 15rem;
+    /* sits above the panel initially, adjusts with JS or CSS */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    /* Above panel */
+
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: none;
+
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: white;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), 0 0 0 4px rgba(15, 23, 42, 0.5);
+    /* ring effect */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-play-btn:hover {
+    transform: translateX(-50%) translateY(-6px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.6), 0 0 0 4px rgba(15, 23, 42, 0.5);
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+}
+
+.fab-play-btn:active {
+    transform: translateX(-50%) translateY(-2px) scale(0.95);
+}
+
+/* Spacer in the control row so items don't crowd the FAB space */
+.fab-spacer {
+    width: 80px;
+    flex-shrink: 0;
+}
+
+/* Controls Container & Handle */
 .controls-container {
-    padding: 2rem;
+    position: relative;
+    padding: 0 2rem 2rem 2rem;
     background-color: var(--surface-color);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 32px 32px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 20;
 }
 
-.control-group {
+.controls-container.collapsed {
+    transform: translateY(calc(100% - 3rem));
+    /* Show only handle (approx 3rem height) */
+}
+
+/* Handle Design */
+.panel-handle-area {
+    width: 100%;
+    padding: 1rem 0 0.5rem 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.btn {
-    background: none;
-    border: none;
     cursor: pointer;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    transition: all var(--transition-speed);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.btn-primary {
-    background: var(--accent-color);
-    color: #000;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+.panel-handle-pill {
+    width: 60px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    transition: background-color 0.2s;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+.panel-handle-area:hover .panel-handle-pill {
+    background-color: var(--accent-color);
 }
 
-.hidden {
-    display: none;
+/* When collapsed, we can move the FAB down slightly? 
+   Or simpler: Fix FAB to sit nicely "in the groove" of the panel 
+   and move with it? 
+   No, user said 'visible' always. 
+   Let's position FAB relative to viewport bottom but constrained. 
+   
+   Actually, absolute positioning relative to #app or body is safer.
+*/
+body {
+    position: relative;
 }
+
+.fab-play-btn {
+    position: fixed;
+    bottom: 220px;
+    /* Aligned with the open panel gap */
+    transition: bottom 0.5s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s;
+}
+
+/* Adjust FAB position when panel is collapsed */
+body.panel-is-collapsed .fab-play-btn {
+    bottom: 60px;
+    /* Sits nicely above the collapsed handle */
+    transform: translateX(-50%) scale(0.8);
+    /* Slightly smaller? optional */
+}
+
 
 .slider-control {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    min-width: 200px;
+    gap: 0.25rem;
+    min-width: 100px;
 }
 
 .slider-control label {
