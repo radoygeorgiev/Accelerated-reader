@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accelerated Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Roboto+Mono:wght@400;700&family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>FlowRead</h1>
+    </header>
+
+    <main class="reader-container">
+      <!-- The visual anchor guide -->
+      <div class="reading-area">
+        <div class="focus-indicator-top"></div>
+        <div class="focus-indicator-bottom"></div>
+        <div id="word-display" class="word-display">
+          <!-- Words will be injected here -->
+          <span class="placeholder">Ready to Read</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="controls-container">
+      <div class="control-group">
+        <button id="play-pause-btn" class="btn btn-primary" aria-label="Play or Pause">
+          <svg class="icon play-icon" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M8 5v14l11-7z" />
+          </svg>
+          <svg class="icon pause-icon hidden" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+        <div class="slider-control">
+          <label for="wpm-slider">Speed: <span id="wpm-value">300</span> WPM</label>
+          <input type="range" id="wpm-slider" min="60" max="1000" value="300" step="10">
+        </div>
+        <div class="slider-control">
+          <label for="chunk-size-slider">Words at a time: <span id="chunk-size-value">1</span></label>
+          <input type="range" id="chunk-size-slider" min="1" max="5" value="1" step="1">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="select-control">
+          <label for="font-family-select">Font Family</label>
+          <select id="font-family-select">
+            <option value="'Outfit', sans-serif">Outfit (Default)</option>
+            <option value="'Inter', sans-serif">Inter</option>
+            <option value="'Roboto Mono', monospace">Roboto Mono</option>
+            <option value="'Merriweather', serif">Merriweather</option>
+            <option value="monospace">Standard Mono</option>
+          </select>
+        </div>
+        <div class="slider-control">
+          <label for="font-size-slider">Font Size: <span id="font-size-value">64</span>px</label>
+          <input type="range" id="font-size-slider" min="24" max="150" value="64" step="2">
+        </div>
+      </div>
+
+      <div class="input-area">
+        <textarea id="text-input" placeholder="Paste your text here to begin speed reading..."></textarea>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
